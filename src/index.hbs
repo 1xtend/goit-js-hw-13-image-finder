@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="uk">
   <head>
-    {{>partials/meta title="Simple webpack"}}
+    {{>partials/meta title="Image finder"}}
   </head>
   <body>
 
     <span class="loader"></span>
+
+    <div class="modal ">
+      <img src="" alt="" class="modal__img">
+    </div>
 
     <div class="container">
 
@@ -21,13 +25,14 @@
         </div>
       </form>
       
-      <ul class="gallery">
-        <!-- Список <li> з картками зображень -->
-      </ul>
+      <div class="gallery">
+      </div>
 
       <button id="loadMoreBtn" class="load-btn" type="button">
         Load more
       </button>
+
+      <button type="button" class="scroll-btn">&#8593;</button>
 
     </div>
 

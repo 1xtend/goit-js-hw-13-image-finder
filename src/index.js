@@ -1,11 +1,13 @@
-import './styles/index.scss';
 import axios from 'axios';
 import { alert } from '@pnotify/core';
 import '@pnotify/core/dist/PNotify.css';
 import '@pnotify/core/dist/BrightTheme.css';
+import numeral from 'numeral';
 
+import './styles/index.scss';
 import photoCardTemplate from './partials/photoCard.hbs';
-import { entries } from 'lodash';
+
+// Vars
 
 const fetch = {
   apiToken: '33665756-797053471af2a43772fb226e5',
@@ -18,17 +20,56 @@ const refs = {
   searchForm: document.querySelector('#search-form'),
   loadMoreBtn: document.querySelector('#loadMoreBtn'),
   loader: document.querySelector('.loader'),
+  body: document.querySelector('body'),
+  modal: document.querySelector('.modal'),
+  scrollBtn: document.querySelector('.scroll-btn'),
 };
 
 let page = 1;
 let query = '';
 let perPage = 12;
+let photoCards;
+let modalImage = '';
 
 // Functions
 
+function findPhotos() {
+  photoCards = document.querySelectorAll('.photo-card');
+
+  photoCards.forEach((photoCard) => {
+    photoCard.addEventListener('click', (e) => {
+      if (!e.target.dataset.url) {
+        return;
+      }
+
+      modalImage = refs.modal.firstElementChild;
+      modalImage.src = e.target.dataset.url;
+      refs.modal.classList.add('active');
+      refs.body.classList.add('fixed');
+      refs.scrollBtn.classList.remove('active');
+    });
+  });
+
+  refs.modal.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('modal__img') && refs.modal.classList.contains('active')) {
+      refs.modal.classList.remove('active');
+      refs.body.classList.remove('fixed');
+      refs.scrollBtn.classList.add('active');
+
+      modalImage.src = '';
+      modalImage = '';
+    }
+  });
+}
+
 function fetchRequest() {
-  refs.loader.style.display = 'block';
-  refs.loadMoreBtn.style.display = 'none';
+  if (page > 1) {
+    refs.loadMoreBtn.textContent = 'Loading...';
+    refs.loader.style.display = 'none';
+  } else {
+    refs.loadMoreBtn.style.display = 'none';
+    refs.loader.style.display = 'block';
+  }
 
   axios
     .get(`https://pixabay.com/api`, {
@@ -42,10 +83,14 @@ function fetchRequest() {
       },
     })
     .then((res) => {
+      refs.loadMoreBtn.textContent = 'Load more';
+
       if (res.data.hits.length === 0) {
         alert({
           text: 'Нічого не знайдено',
         });
+        refs.loadMoreBtn.style.display = 'none';
+
         return;
       }
 
@@ -63,11 +108,18 @@ function fetchRequest() {
         refs.loadMoreBtn.style.display = 'none';
       } else {
         refs.loadMoreBtn.style.display = 'block';
+        refs.loadMoreBtn.disabled = false;
       }
 
-      console.log(res.data.hits.length);
+      findPhotos();
     })
-    .catch((error) => {})
+    .catch((error) => {
+      alert({
+        title: 'Невідома помилка',
+      });
+
+      refs.loadMoreBtn.style.display = 'none';
+    })
     .finally(() => {
       refs.loader.style.display = 'none';
     });
@@ -78,11 +130,18 @@ function fetchRequest() {
 refs.searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  query = e.target.elements.query.value;
+  query = e.target.elements.query.value.trim();
 
   if (query === '') {
     alert({
       text: 'Введіть пошуковий запит',
+    });
+    return;
+  }
+
+  if (query.length >= 100) {
+    alert({
+      text: 'Запит повинен містити не більше 100 символів',
     });
     return;
   }
@@ -94,5 +153,21 @@ refs.searchForm.addEventListener('submit', (e) => {
 });
 
 refs.loadMoreBtn.addEventListener('click', (e) => {
+  refs.loadMoreBtn.disabled = true;
   fetchRequest();
+});
+
+window.addEventListener('scroll', (e) => {
+  if (window.scrollY > 400) {
+    refs.scrollBtn.classList.add('active');
+  } else {
+    refs.scrollBtn.classList.remove('active');
+  }
+});
+
+refs.scrollBtn.addEventListener('click', (e) => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
 });

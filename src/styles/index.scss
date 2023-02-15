@@ -11,55 +11,120 @@ body {
 
   background-color: #2c2c2c;
   min-height: 100vh;
+  width: 100%;
   position: relative;
+
+  &.fixed {
+    overflow-y: hidden;
+  }
+}
+
+.loader {
+  display: none;
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid #423bff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  animation: rotation 1s linear infinite;
+  z-index: 5;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.modal {
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity 0.3s linear, visibility 0.3s linear;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__img {
+    max-width: 80%;
+    height: auto;
+  }
 }
 
 .container {
-  max-width: 1210px;
+  max-width: 1460px;
   margin: 0 auto;
   padding: 0 10px;
+  position: relative;
 }
 
 .search-form {
   width: 100%;
   padding: 10px 0;
+
   position: fixed;
   display: flex;
   justify-content: center;
+  top: 0;
+  left: 0;
 
   background-color: #2c2c2c;
 }
 
 .form-field {
   max-width: 300px;
-  display: flex;
+  margin: 0 auto;
   height: 40px;
+  display: flex;
+
   border-radius: 40px;
-  overflow: hidden;
   border: 2px solid #fff;
 
-  input {
-    width: 100%;
-    padding: 10px 15px;
-    outline: none;
+  overflow: hidden;
 
-    font-family: inherit;
+  input {
+    padding: 10px 15px;
+
+    outline: none;
     border: none;
     background: transparent;
+
+    font-family: inherit;
     color: #fff;
   }
 
   button {
     padding: 0 10px;
+
     outline: none;
     cursor: pointer;
     border: none;
-
     background-color: #423bff;
+
     color: #fff;
     font-family: inherit;
     font-weight: 700;
     font-size: 14px;
+
     transition: background-color 0.2s linear;
 
     &:hover {
@@ -69,25 +134,30 @@ body {
 }
 
 .gallery {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  list-style: none;
+
+  grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+  gap: 30px;
   justify-content: center;
-  gap: 15px;
+
   padding-top: 80px;
 }
 
 .photo-card {
   padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
-  display: flex;
-  max-width: 300px;
-  flex-direction: column;
 
   img {
     width: 100%;
     height: auto;
     margin-bottom: auto;
+    cursor: pointer;
   }
 }
 
@@ -125,26 +195,28 @@ body {
   }
 }
 
-.loader {
-  display: none;
-  width: 48px;
-  height: 48px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 5px solid #fff;
-  border-bottom-color: transparent;
+.scroll-btn {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50%;
-  animation: rotation 1s linear infinite;
-  z-index: 5;
-}
+  font-size: 24px;
+  border: none;
+  background-color: rgba(65, 59, 255, 0.5);
+  cursor: pointer;
+  color: #fff;
+  position: fixed;
+  right: -100px;
+  bottom: 20px;
+  transition: right 0.3s ease-in-out;
 
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
+  &.active {
+    right: 20px;
   }
-  100% {
-    transform: rotate(360deg);
+
+  &:hover {
+    background-color: rgba(65, 59, 255, 0.8);
   }
 }

@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+
+  background-color: #2c2c2c;
+  min-height: 100vh;
+  position: relative;
+}
+
+.container {
+  max-width: 1210px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.search-form {
+  width: 100%;
+  padding: 10px 0;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+
+  background-color: #2c2c2c;
+}
+
+.form-field {
+  max-width: 300px;
+  display: flex;
+  height: 40px;
+  border-radius: 40px;
+  overflow: hidden;
+  border: 2px solid #fff;
+
+  input {
+    width: 100%;
+    padding: 10px 15px;
+    outline: none;
+
+    font-family: inherit;
+    border: none;
+    background: transparent;
+    color: #fff;
+  }
+
+  button {
+    padding: 0 10px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+
+    background-color: #423bff;
+    color: #fff;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    transition: background-color 0.2s linear;
+
+    &:hover {
+      background-color: #2d27e4;
+    }
+  }
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding-top: 80px;
+}
+
+.photo-card {
+  padding: 10px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  display: flex;
+  max-width: 300px;
+  flex-direction: column;
+
+  img {
+    width: 100%;
+    height: auto;
+    margin-bottom: auto;
+  }
+}
+
+.stats {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.load-btn {
+  display: none;
+  margin: 15px auto;
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  background-color: #423bff;
+
+  color: #fff;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  transition: background-color 0.2s linear;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #2d27e4;
+  }
+}
+
+.loader {
+  display: none;
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  animation: rotation 1s linear infinite;
+  z-index: 5;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

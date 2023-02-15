@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    {{>partials/meta title="Simple webpack"}}
+  </head>
+  <body>
+
+    <span class="loader"></span>
+
+    <div class="container">
+
+      <form class="search-form" id="search-form">
+        <div class="form-field">
+          <input
+            type="text"
+            name="query"
+            autocomplete="off"
+            placeholder="Search images..."
+          />
+          <button type="submit">Search</button>
+        </div>
+      </form>
+      
+      <ul class="gallery">
+        <!-- Список <li> з картками зображень -->
+      </ul>
+
+      <button id="loadMoreBtn" class="load-btn" type="button">
+        Load more
+      </button>
+
+    </div>
+
+  </body>
+</html>

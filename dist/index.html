@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Image finder</title>
+    <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet' />  <script defer src="index.js"></script><link href="index.css" rel="stylesheet"></head>
+  <body>
+
+    <span class="loader"></span>
+
+    <div class="modal ">
+      <img src="" alt="" class="modal__img">
+    </div>
+
+    <div class="container">
+
+      <form class="search-form" id="search-form">
+        <div class="form-field">
+          <input
+            type="text"
+            name="query"
+            autocomplete="off"
+            placeholder="Search images..."
+          />
+          <button type="submit">Search</button>
+        </div>
+      </form>
+      
+      <div class="gallery">
+      </div>
+
+      <button id="loadMoreBtn" class="load-btn" type="button">
+        Load more
+      </button>
+
+      <button type="button" class="scroll-btn">&#8593;</button>
+
+    </div>
+
+  </body>
+</html>

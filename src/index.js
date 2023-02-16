@@ -157,6 +157,7 @@ refs.searchForm.addEventListener('submit', (e) => {
 refs.loadMoreBtn.addEventListener('click', (e) => {
   refs.loadMoreBtn.disabled = true;
   fetchRequest();
+  console.log(true);
 });
 
 window.addEventListener('scroll', (e) => {

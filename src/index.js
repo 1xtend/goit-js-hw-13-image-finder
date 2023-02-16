@@ -94,6 +94,8 @@ function fetchRequest() {
         return;
       }
 
+      console.log(res.data);
+
       page++;
       let html = '';
 
